@@ -1,21 +1,28 @@
 import express from 'express';
-import path from 'path';
 import { things } from './routes/things.js'
 import { test }from './routes/test.js'
+import { home, __dirname }from './routes/home.js'
 import cookieParser from 'cookie-parser';
 
-
-
-const __dirname = path.resolve(path.dirname(''));
 var app = express();
 const port = 3000;
+
 
 /* Server vars */
 
 /* Middleware */
 app.use(express.static('public'));
+app.use("/", home);
 app.use("/things", things);
 app.use("/test", test);
+app.use( (req, res, next) => {
+    res.status(404).send('This page DNE. :(');
+});
+app.use( (err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Woops! Server broke.');
+    next();
+});
 app.use(cookieParser);
 
 
@@ -23,29 +30,6 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'pug');
 app.set('view cache', true)
 app.set('env', 'development');
-
-
-/* Routes */
-app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: __dirname });
-});
-
-/*--------------- Serving Static Files ------------------*/
-app.get('/receiveFile', (req, res) => {
-    res.sendFile( __dirname + '/index.html');
-});
-
-app.get('/home/render', (req, res) => {
-    res.render('index', 
-    {
-        title: 'My Title',
-        message: 'Hello World (Template)'
-    });
-});
-
-app.get('/home/editForm', (req, res) => {
-    res.render('edit-form');
-});
 
 /* Server Start */
 var server = app.listen(3000, '127.0.0.1', () => {
