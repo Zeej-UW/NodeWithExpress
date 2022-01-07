@@ -1,0 +1,20 @@
+mixin fetch(arr)
+ ul
+ each ele in arr 
+  li= ele
+
+html
+ head
+  title= title
+  link(rel='stylesheet', href='/css/style.css')
+ body
+  h1= message
+  block content
+- var companies = ["Apple", "Microsoft"];
+
+if( companies.length > 0 )
+ p you have #{companies.length} followers.
+else
+ p you have no followers.
+
++fetch(companies)

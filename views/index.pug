@@ -1,0 +1,22 @@
+extends layout
+
+block content
+ h1= title
+ p Welcome to #{title}
+ - obj = {name: 'Charles J.', age: 24}
+
+ div.cool-kids
+  p
+    | I'm running it!
+    | I'm running it FAST!
+    | I'm running it SUPER FAST!
+  p 
+   include show
+
+    - var name = "<em>Charles</em>";
+    p !{name}
+    a(href="/")
+     img(src="/img/placeholder.png", alt="PH Image")
+  ul
+   li #{obj.name}
+   li #{obj.age} 

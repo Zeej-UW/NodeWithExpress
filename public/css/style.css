@@ -1,0 +1,10 @@
+* {
+    background-color: aqua;
+}
+
+.cool-kids {
+    border: black;
+    border-radius: 1px;
+    border-width: 1px;
+    border-style: dashed;
+}
