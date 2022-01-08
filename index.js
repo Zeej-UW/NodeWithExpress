@@ -3,15 +3,26 @@ import { things } from './routes/things.js'
 import { test }from './routes/test.js'
 import { home, __dirname }from './routes/home.js'
 import cookieParser from 'cookie-parser';
+import * as mysql from 'mysql2';
 
 var app = express();
 const port = 3000;
 
 
 /* Server vars */
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'cjjaxx',
+  password : '',
+  database : 'express'
+});
+ 
+connection.connect();
 
 /* Middleware */
 app.use(express.static('public'));
+
+/* Express Middleware */
 app.use("/", home);
 app.use("/things", things);
 app.use("/test", test);
